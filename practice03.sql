@@ -9,11 +9,15 @@ FROM employees emp, departments dept
 WHERE emp.department_id = dept.department_id
 ORDER BY dept.department_name,  -- 오름차순
     emp.employee_id DESC;
-
+--  NATURAL JOIN으로는 불가하다 -> 주의 
+--  employees, departments 테이블은 department_id와 manager_id 공통 필드를 가지고 있다
 SELECT employee_id, first_name, last_name, department_name
-FROM employees NATURAL JOIN departments    --  Natural JOIN
-ORDER BY department_name,  -- 오름차순
-       employee_id DESC;
+FROM employees NATURAL JOIN departments;    --  Natural JOIN
+--NATURAL JOIN으로 쓴건  아래 쿼리와 동일
+SELECT employee_id, first_name, last_name, dept.department_name
+FROM employees emp, departments dept
+WHERE emp.department_id = dept.department_id AND
+    emp.manager_id = dept.manager_id;
 
 /*
 문제2.
